@@ -1,0 +1,198 @@
+①.求和算法
+GETSUM(A)
+1  sum = 0
+2  n = A.length
+3  for i = 1 to n
+4      sum = sum + A[i-1]
+5  return sum
+
+②.求平均值
+GETMEAN(A)
+1  n = A.length
+2  sum = GETSUM(A)
+3  return sum/n
+
+③.求众数
+GETMODE(A)
+1  Map<double,int> m
+2  n = A.length
+3  for i = 1 to n
+4      if m的key中包含A[i-1]
+5          m加入(A[i-1],m.get(A[i-1])+1)
+6      else
+7          m加入(A[i-1],1)
+8  maxCount = 0
+9  mode = -1
+10 Let iter as m的keyset的迭代器
+11 while iter.hasNext()
+12     num = iter.next()
+13     count = m.get(num)
+14     if count>maxCount
+15         maxCount = count
+16         mode = num
+17 return mode
+
+④.求中位数
+GETMEDIAN(A)
+1  temp = A的拷贝
+2  对temp进行排序
+3  n = temp.length
+4  if n % 2 = 0
+5      median = (temp[n/2-1]+temp[n/2]) / 2
+6  else
+7      median = temp[n/2]
+8  return median
+
+⑤.求中列数
+GETMIDRANGE(A)
+1  max = min = A[0]
+2  n = A.length
+3  for i = 1 to n
+4      if A[i-1] > max
+5          max = A[i-1]
+6      if A[i-1] < min
+7          min = A[i-1]
+8 return (min+max)/2
+
+⑥求四分位数
+GETQUARTILES(A)
+1  temp = A的拷贝
+2  对temp进行排序
+3  let q[1...3] be new arrays
+4  q[1] = GETMIDIAN(temp)
+5  n = temp.length
+6  if n % 2=0
+7      q[0] = GETMEDIAN(Arrays.copyOfRange(tempArr, 0, tempArr.length / 2))
+8      q[2] = GETMEDIAN(Arrays.copyOfRange(tempArr, tempArr.length / 2, tempArr.length))
+9  else
+10     q[0] = GETMEDIAN(getMedian(Arrays.copyOfRange(tempArr, 0, tempArr.length / 2))
+11     q[1] = GETMEDIAN(getMedian(Arrays.copyOfRange(tempArr, tempArr.length / 2 + 1, tempArr.length))
+12 return quartiles
+
+⑦求极差
+GETRANGE(A)
+1  max = min = A[0]
+2  n = A.length
+3  for i = 1 to n
+4      if A[i-1] > max
+5          max = A[i-1]
+6      if A[i-1] < min
+7	   min = A[i-1]
+8  return max - min
+
+⑧求四位数极差
+GETQUARTILESRANGE(A)
+1  return GETRANGE(GETQUARTILES(A))
+
+⑨求截断均值
+GETTRIMMEDMEAN(A,p)
+1  n = A.length
+2  t = n * p / 100
+3  temp = A的拷贝
+4  return GETMEAN(temp)
+
+⑩求方差
+GETVARIANCE(A)
+1  variance = 0 
+2  sum = sum2 = 0
+3  n = A.length
+4  for i = 1 to n
+5      sum = sum + A[i-1]
+6      sum2 = A[i-1] * A[i-1]
+7  variance = sum2 / n - (sum / n) * (sum / n)
+8  return variance
+
+求绝对平均偏差
+GETABSOLUTEAVERAGEDEVIATION(A)
+1  sum = 0
+2  mean = GEYMEAN(A)
+3  n = A.length
+4  for i = 1 to n
+5      sum = sum + Math.abs(A[i-1] -mean)
+6  return sun / n
+
+求中位数绝对偏差
+GETMEDIANABSOLUTEDEVIATION
+1  n = A.length
+2  let temp[1...n] as new array
+3  median = GETMEDIAN(A)
+4  for int i = 1 to n
+5      temp[i-1] = Math.abs(A[i-1] - median)
+6  return GETMEDIAN(temp)
+
+求标准差
+GETSTANDARDDEVITION(A)
+1  sum = 0
+2  mean = GETMEAN(A)
+3  n = A.length
+4  for i = 1 to n
+5      sum = sum + Math.sqrt((A[i-1] - mean) * (A[i-1] -mean))
+6  return (sum / (n-1))
+
+
+数据规范化
+
+1.最小最大规范化
+MINMAXNORMALIZE(A)
+1  temp = A的拷贝
+2  max = min = temp[0]
+3  n = A.length
+4  for i = 1 to n
+5      if temp[i-1] > max
+6          max = temp[i-1]
+7      if temp[i-1] < min
+8          min = temp[i-1]
+9  for i = 1 to n
+10     temp[i-1] = (temp[i-1] - min) / (max - min)
+11 return temp
+
+
+2.Z-zeros规范化
+ZSCORENORMALIZE(A)
+1  temp = A的拷贝
+2  sum = 0
+3  n = A.length
+4  for i = 1 to n
+5      sum = sum + temp[i-1]
+6  mean = sum / n
+7  sum2 = 0
+8  for i = 1 to n
+9      sum2 = sum2 + Math.sqrt((temp[i-1] - mean) * (temp[i-1] - mean))
+10 standardDivition = sum2 / (n - 1)
+11 for i = 1 to n
+12     temp[i-1] = (temp[i-1] -mean) / standardDivition 
+13 return temp
+
+
+3.小数定规范化
+DECIMALSNORMALIZE(A)
+1  temp = A的拷贝
+2  max = temp[0]
+3  n = A.length
+4  for i = 1 to n
+5      if temp[i-1] >max
+6          max = temp[i-1]
+7  j = 0
+8  while Math.abs(max/Math.pow(10,j))>=1
+9      j = j + 1
+10 for i = 1 yo n
+11     temp[i-1] = temp[i-1] / Math.pow(10,j)
+12 return temp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
